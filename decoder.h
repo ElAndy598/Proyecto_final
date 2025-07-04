@@ -1,58 +1,47 @@
-#ifndef DECODER_H
-#define DECODER_H
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-#define MAX_INPUT_SIZE 1000
-#define MAX_OUTPUT_SIZE 2000
-#define MORSE_TABLE_SIZE 36
+#define MAX_TAM_ENTRADA 1000
+#define MAX_TAM_SALIDA 2000
+#define TAM_TABLA_MORSE 36
 
-// Estructura para almacenar el texto y su longitud
 typedef struct {
-    char *text;
-    int length;
-    int capacity;
+    char *texto;
+    int longitud;
+    int capacidad;
 } TextBuffer;
 
-// Estructura para el código Morse
 typedef struct {
-    char character;
-    char *morse_code;
-} MorseEntry;
+    char caracter;
+    char *codigo_morse;
+} EntradaMorse;
 
-// Estructura principal del decodificador
 typedef struct {
-    TextBuffer *input;
-    TextBuffer *output;
-    MorseEntry *morse_table;
-} Decoder;
+    TextBuffer *entrada;
+    TextBuffer *salida;
+    EntradaMorse *tabla_morse;
+} Decodificador;
 
-// Funciones para manejo de TextBuffer
-TextBuffer* create_text_buffer(int initial_capacity);
-void destroy_text_buffer(TextBuffer *buffer);
-void append_to_buffer(TextBuffer *buffer, const char *text);
-void clear_buffer(TextBuffer *buffer);
+TextBuffer* crear_texto_buffer(int capacidad_inicial);
+void destruir_texto_buffer(TextBuffer *buffer);
+void agregar_a_buffer(TextBuffer *buffer, const char *texto);
+void limpiar_buffer(TextBuffer *buffer);
 
-// Funciones principales de decodificación
-Decoder* create_decoder(void);
-void destroy_decoder(Decoder *decoder);
-void init_morse_table(Decoder *decoder);
+Decodificador* crear_decodificador(void);
+void destruir_decodificador(Decodificador *d);
+void inicializar_tabla_morse(Decodificador *d);
 
-// Funciones de decodificación específicas
-int decode_caesar(Decoder *decoder, int shift);
-int decode_hexadecimal(Decoder *decoder);
-int decode_ascii(Decoder *decoder);
-int decode_morse(Decoder *decoder);
+int decodificar_cesar(Decodificador *d, int desplazamiento);
 
-// Funciones auxiliares
-int is_valid_hex(const char *str);
-int is_valid_ascii_codes(const char *str);
-int is_valid_morse(const char *str);
-char morse_to_char(const char *morse_code, MorseEntry *table);
-void print_menu(void);
-void print_result(const char *method, const char *result);
+int decodificar_ascii(Decodificador *d);
+int decodificar_morse(Decodificador *d);
 
-#endif
+int es_hex_valido(const char *str);
+int es_ascii_valido(const char *str);
+int es_morse_valido(const char *str);
+char morse_a_caracter(const char *codigo, EntradaMorse *tabla);
+void mostrar_menu(void);
+void mostrar_resultado(const char *metodo, const char *resultado);
+
