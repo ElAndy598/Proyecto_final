@@ -1,105 +1,89 @@
-#include "decoder.h"
+#include "decodificador.h"
 
 int main(void) {
-    Decoder *decoder = create_decoder();
-    if (!decoder) {
+    Decodificador *decodificador = crear_decodificador();
+    if (!decodificador) {
         printf("Error: No se pudo inicializar el decodificador.\n");
         return 1;
     }
     
-    int option;
-    char input[MAX_INPUT_SIZE];
-    int shift;
+    int opcion;
+    char entrada[MAX_TAM_ENTRADA];
+    int desplazamiento;
     
-    printf("¡Bienvenido al Decodificador Universal!\n");
+    printf("Bienvenido al Decodificador Universal!\n");
     
     do {
-        print_menu();
-        scanf("%d", &option);
+        mostrar_menu();
+        scanf("%d", &opcion);
         getchar(); // Limpiar buffer
         
-        switch (option) {
-            case 1: // César
-                printf("\nIngrese el texto cifrado con César: ");
-                fgets(input, sizeof(input), stdin);
-                input[strcspn(input, "\n")] = '\0'; // Remover salto de línea
+        switch (opcion) {
+            case 1: // Cesar
+                printf("\nIngrese el texto cifrado con Cesar: ");
+                fgets(entrada, sizeof(entrada), stdin);
+                entrada[strcspn(entrada, "\n")] = '\0'; // Remover salto de linea
                 
-                printf("Ingrese el desplazamiento (shift): ");
-                scanf("%d", &shift);
+                printf("Ingrese el desplazamiento: ");
+                scanf("%d", &desplazamiento);
                 getchar();
                 
-                // Limpiar y establecer input
-                clear_buffer(decoder->input);
-                append_to_buffer(decoder->input, input);
+                limpiar_buffer(decodificador->entrada);
+                agregar_a_buffer(decodificador->entrada, entrada);
                 
-                if (decode_caesar(decoder, shift)) {
-                    print_result("César", decoder->output->text);
+                if (decodificar_cesar(decodificador, desplazamiento)) {
+                    mostrar_resultado("Cesar", decodificador->salida->texto);
                 } else {
-                    printf("Error al decodificar César.\n");
+                    printf("Error al decodificar Cesar.\n");
                 }
                 break;
                 
-            case 2: // Hexadecimal
-                printf("\nIngrese el texto en hexadecimal (sin espacios): ");
-                fgets(input, sizeof(input), stdin);
-                input[strcspn(input, "\n")] = '\0';
+            case 2: // ASCII
+                printf("\nIngrese los codigos ASCII separados por espacios: ");
+                fgets(entrada, sizeof(entrada), stdin);
+                entrada[strcspn(entrada, "\n")] = '\0';
                 
-                clear_buffer(decoder->input);
-                append_to_buffer(decoder->input, input);
+                limpiar_buffer(decodificador->entrada);
+                agregar_a_buffer(decodificador->entrada, entrada);
                 
-                if (decode_hexadecimal(decoder)) {
-                    print_result("Hexadecimal", decoder->output->text);
+                if (decodificar_ascii(decodificador)) {
+                    mostrar_resultado("ASCII", decodificador->salida->texto);
                 } else {
-                    printf("Error: Formato hexadecimal inválido.\n");
+                    printf("Error: Codigos ASCII invalidos.\n");
                 }
                 break;
                 
-            case 3: // ASCII
-                printf("\nIngrese los códigos ASCII separados por espacios: ");
-                fgets(input, sizeof(input), stdin);
-                input[strcspn(input, "\n")] = '\0';
+            case 3: // Morse
+                printf("\nIngrese el codigo Morse (separado por espacios): ");
+                fgets(entrada, sizeof(entrada), stdin);
+                entrada[strcspn(entrada, "\n")] = '\0';
                 
-                clear_buffer(decoder->input);
-                append_to_buffer(decoder->input, input);
+                limpiar_buffer(decodificador->entrada);
+                agregar_a_buffer(decodificador->entrada, entrada);
                 
-                if (decode_ascii(decoder)) {
-                    print_result("ASCII", decoder->output->text);
+                if (decodificar_morse(decodificador)) {
+                    mostrar_resultado("Morse", decodificador->salida->texto);
                 } else {
-                    printf("Error: Códigos ASCII inválidos.\n");
+                    printf("Error: Codigo Morse invalido.\n");
                 }
                 break;
                 
-            case 4: // Morse
-                printf("\nIngrese el código Morse (separado por espacios): ");
-                fgets(input, sizeof(input), stdin);
-                input[strcspn(input, "\n")] = '\0';
-                
-                clear_buffer(decoder->input);
-                append_to_buffer(decoder->input, input);
-                
-                if (decode_morse(decoder)) {
-                    print_result("Morse", decoder->output->text);
-                } else {
-                    printf("Error: Código Morse inválido.\n");
-                }
-                break;
-                
-            case 5:
-                printf("\n¡Gracias por usar el Decodificador Universal!\n");
+            case 4:
+                printf("\nGracias por usar el Decodificador Universal!\n");
                 break;
                 
             default:
-                printf("Opción inválida. Intente nuevamente.\n");
+                printf("Opcion invalida. Intente nuevamente.\n");
                 break;
         }
         
-        if (option != 5) {
+        if (opcion != 4) {
             printf("\nPresione Enter para continuar...");
             getchar();
         }
         
-    } while (option != 5);
+    } while (opcion != 4);
     
-    destroy_decoder(decoder);
+    destruir_decodificador(decodificador);
     return 0;
 }
