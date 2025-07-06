@@ -235,7 +235,7 @@ char morse_a_caracter(const char *codigo, EntradaMorse *tabla) {
 
 // Menu y resultado
 void mostrar_menu(void) {
-    printf("\n=== DECODIFICADOR UNIVERSAL ===\n");
+    printf("\nDECODIFICADOR UNIVERSAL\n");
     printf("1. Decodificar Cesar\n");
     printf("2. Decodificar ASCII\n");
     printf("3. Decodificar Morse\n");
