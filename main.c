@@ -20,6 +20,7 @@ int main(void) {
         
         switch (opcion) {
             case 1: // Cesar
+            //EJEMPLO DE USO: 1. César (shift 3): Entrada: "KROOR" Salida: "HELLO"
                 printf("\nIngrese el texto cifrado con Cesar: ");
                 fgets(entrada, sizeof(entrada), stdin);
                 entrada[strcspn(entrada, "\n")] = '\0'; // Remover salto de linea
@@ -39,6 +40,7 @@ int main(void) {
                 break;
                 
             case 2: // ASCII
+            //EJEMPLO DE USO: Entrada: "72 101 108 108 111" Salida: "Hello"
                 printf("\nIngrese los codigos ASCII separados por espacios: ");
                 fgets(entrada, sizeof(entrada), stdin);
                 entrada[strcspn(entrada, "\n")] = '\0';
@@ -54,6 +56,7 @@ int main(void) {
                 break;
                 
             case 3: // Morse
+            //EJEMPLO DE USO: Entrada: ".... . .-.. .-.. ---" Salida: "HELLO"
                 printf("\nIngrese el codigo Morse (separado por espacios): ");
                 fgets(entrada, sizeof(entrada), stdin);
                 entrada[strcspn(entrada, "\n")] = '\0';
