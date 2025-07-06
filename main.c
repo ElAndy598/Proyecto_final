@@ -11,7 +11,7 @@ int main(void) {
     char entrada[MAX_TAM_ENTRADA];
     int desplazamiento;
     
-    printf("Bienvenido al Decodificador Universal!\n");
+    printf("Bienvenido\n");
     
     do {
         mostrar_menu();
@@ -69,7 +69,7 @@ int main(void) {
                 break;
                 
             case 4:
-                printf("\nGracias por usar el Decodificador Universal!\n");
+                printf("\nGracias por usar el Decodificador Universal\n");
                 break;
                 
             default:
@@ -78,7 +78,7 @@ int main(void) {
         }
         
         if (opcion != 4) {
-            printf("\nPresione Enter para continuar...");
+            printf("\nPresione Enter para continuar");
             getchar();
         }
         
